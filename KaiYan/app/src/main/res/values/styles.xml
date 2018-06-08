@@ -1,0 +1,93 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+    </style>
+    <!--Activity动画-->
+
+<style name="video" >
+    <item name="colorPrimary">@color/black</item>
+    <item name="colorPrimaryDark">@color/black</item>
+    <item name="colorAccent">@color/black</item>
+</style>
+
+    <style name="Theme_Light" parent="Theme.AppCompat.Light.NoActionBar">
+        <!--<item name="gallery_ucrop_title_text">@string/gallery_ucrop_menu_crop</item>-->
+    </style>
+    <style name="Theme_Light.Default" />
+
+    <declare-styleable name="DoubleLineChatView">
+        <!--左边的柱状图的颜色-->
+        <attr name="chatview_left_background_color" format="color" />
+        <!--右边的柱状图的颜色-->
+        <attr name="chatview_right_background_color" format="color" />
+
+        <!--字体（左数据）的颜色-->
+        <attr name="chatview_left_text_data_color" format="color" />
+        <!--字体（右数据）的颜色-->
+        <attr name="chatview_right_text_data_color" format="color" />
+        <!--字体（数据）的大小-->
+        <attr name="chatview_text_data_size" format="dimension" />
+
+        <!--（xy轴）的颜色-->
+        <attr name="chatview_text_xy_color" format="color" />
+        <!--（xy轴）的字体大小-->
+        <attr name="chatview_text_xy_size" format="dimension" />
+
+        <!--左右柱状图之间的小距离-->
+        <attr name="chatview_line_small_distance" format="dimension" />
+        <!--柱状图的宽度-->
+        <attr name="chatview_line_width" format="dimension" />
+        <!--柱状图之间的大距离-->
+        <attr name="chatview_line_big_distance" format="dimension" />
+        <!--Y轴数据的宽度，当数据字符串过大的时候需要调整这个宽度-->
+        <attr name="chatview_y_distance" format="dimension" />
+        <!--X轴数据的宽度-->
+        <attr name="chatview_x_distance" format="dimension" />
+
+        <!--动画时长-->
+        <attr name="chatview_animation_duration" format="integer" />
+        <!--是否显示坐标轴的箭头-->
+        <attr name="chatview_show_arrow" format="boolean" />
+        <!--是否显示Y坐标轴的间断标记-->
+        <attr name="chatview_show_y_interval" format="boolean" />
+
+    </declare-styleable>
+
+
+    <declare-styleable name="Doublezhuview">
+        <!--柱子颜色-->
+        <attr name="doubleview_left_color" format="color"/>
+        <attr name="doubleview_right_color" format="color"/>
+
+        <!--柱子字体颜色大小-->
+        <attr name="doubleview_lefttext_color" format="color"/>
+        <attr name="doubleview_righttext_color" format="color"/>
+        <attr name="doubleview_textdata_size" format="dimension"/>
+
+        <!--xy轴的颜色 字体大小-->
+        <attr name="doubleview_text_xy_color" format="color"/>
+        <attr name="doubleview_text_xy_size" format="dimension"/>
+
+        <attr name="doubleview_small_distance" format="dimension"/>
+        <attr name="doubleview_line_width" format="dimension"/>
+        <attr name="doubleview_gib_diatance" format="dimension"/>
+
+        <attr name="doubleview_y_distance" format="dimension"/>
+        <attr name="doubleview_x_diatance" format="dimension"/>
+
+        <attr name="doubleview_animation_duration" format="integer"/>
+
+        <attr name="doubleview_show_arrow" format="boolean"/>
+
+        <attr name="doubleview_show_y_interval" format="boolean"/>
+
+
+    </declare-styleable>
+</resources>

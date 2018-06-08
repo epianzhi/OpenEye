@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.HomeFragment">
+
+<com.jude.easyrecyclerview.EasyRecyclerView
+    android:id="@+id/home_easyRecycleview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_progress="@layout/view_progress"
+    android:scrollbars="none"
+    >
+
+</com.jude.easyrecyclerview.EasyRecyclerView>
+
+</FrameLayout>

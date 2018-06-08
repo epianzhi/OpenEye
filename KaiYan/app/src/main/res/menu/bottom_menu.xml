@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/item_home"
+        android:icon="@drawable/home_selector"
+        android:title="首页"
+        />
+    <item
+        android:id="@+id/item_find"
+        android:icon="@drawable/find_normal"
+        android:title="发现"
+        />
+    <item
+        android:id="@+id/item_hot"
+        android:icon="@drawable/hot_normal"
+        android:title="热门"
+        />
+    <item
+        android:id="@+id/item_mine"
+        android:icon="@drawable/mine_normal"
+        android:title="我的"
+        />
+</menu>
