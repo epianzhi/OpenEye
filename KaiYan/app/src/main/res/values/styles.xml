@@ -90,4 +90,15 @@
 
 
     </declare-styleable>
+
+    <declare-styleable name="LineChartView">
+        <!--点与点的距离-->
+        <attr name="linechart_distance" format="dimension"/>
+        <!--XY轴文字宽度-->
+        <attr name="linechart_mYDistance" format="dimension"/>
+        <attr name="linechart_mXDistance" format="dimension"/>
+        <attr name="linechart_textSize" format="dimension"/>
+        <attr name="linechart_pointSize" format="dimension"/>
+        <attr name="linechart_pointColor" format="color"/>
+    </declare-styleable>
 </resources>

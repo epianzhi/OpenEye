@@ -99,5 +99,15 @@
         app:doubleview_right_color="@color/colorAccent"
         app:doubleview_gib_diatance="15dp"
         app:doubleview_small_distance="3dp"
+        android:visibility="gone"
+        />
+    <com.qj.kaiyan.weight.LineChartView
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        app:linechart_mYDistance="40dp"
+        app:linechart_mXDistance="30dp"
+        app:linechart_pointSize="5dp"
+        app:linechart_textSize="14sp"
+        app:linechart_pointColor="@color/colorAccent"
         />
 </LinearLayout>
