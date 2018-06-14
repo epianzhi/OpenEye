@@ -105,9 +105,10 @@
         android:layout_width="match_parent"
         android:layout_height="250dp"
         app:linechart_mYDistance="40dp"
-        app:linechart_mXDistance="30dp"
+        app:linechart_mXDistance="25dp"
         app:linechart_pointSize="5dp"
-        app:linechart_textSize="14sp"
+        app:linechart_textSize="13sp"
+        app:linechart_distance="35dp"
         app:linechart_pointColor="@color/colorAccent"
         />
 </LinearLayout>
