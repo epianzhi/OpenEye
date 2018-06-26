@@ -1,5 +1,7 @@
 package com.qj.kaiyan.weight;
 
+import android.animation.AnimatorSet;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -44,6 +46,8 @@ public class LineChartView extends View {
      * shuzhi文字
      */
     private int[] mDataTextY = {100, 300, 200, 400,50,300,350};
+    private int[] mDataTextY2 = {350, 450, 380, 460,250,450,500};
+
 
 
     /**
@@ -74,9 +78,16 @@ public class LineChartView extends View {
     private float pointSize=10;
     private int pointColor=Color.RED;
 
-    private List points;
+    private List<Float> points;
+    private List<Float> points2;
 
     Canvas canvas;
+    float increaseX,increaseY;
+    private float pointX1;
+    private float pointY1;
+    private float pointx2;
+    private float pointY2;
+
     public LineChartView(Context context) {
         this(context,null);
     }
@@ -126,6 +137,7 @@ public class LineChartView extends View {
 
         canvas=new Canvas();
         points=new ArrayList<>();
+        points2=new ArrayList();
     }
 
     @Override
@@ -140,6 +152,11 @@ public class LineChartView extends View {
         setMeasuredDimension(mViewWidth,mViewHeight);
     }
 
+    public void setmData(int[] mData) {
+        this.mData = mData;
+        invalidate();
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -152,6 +169,8 @@ public class LineChartView extends View {
         drawXtext(canvas);
         //画Y轴文字
         drawYtext(canvas);
+
+        start();
 
 
     }
@@ -174,6 +193,7 @@ public class LineChartView extends View {
     }
 
     private void drawXtext(Canvas canvas) {
+        mXYPaint.setColor(Color.BLACK);
         for (int i = 0; i < mDataTextX.length; i++) {
            String text= mDataTextX[i];
 
@@ -203,38 +223,118 @@ public class LineChartView extends View {
 
     private void drawPointLine(Canvas canvas) {
         points.clear();
-        for (int i = 0; i < mDataTextY.length; i++) {
-            float pointX1=mYDistance+distance+1+(distance+1)*i;
-            float pointY1=(mViewHeight - mXDistance) - (mDataTextY[i] * (mViewHeight - 2 * mXDistance)) /maxData;
+        points2.clear();
 
-            canvas.drawPoint(pointX1,pointY1,pointPaint);
+        mXYPaint.setColor(Color.BLACK);
+        for (int i = 0; i < mDataTextY.length; i++) {
+
+            pointX1 = mYDistance+distance+1+(distance+1)*i;
+            pointY1 = (mViewHeight - mXDistance) - (mDataTextY[i] * (mViewHeight - 2 * mXDistance)) /maxData;
+            canvas.drawPoint(pointX1, pointY1,pointPaint);
+
+
+            String text=mDataTextY[i]+"";
+
+            float textWidth= mXYPaint.measureText(text,0,text.length());
+            float textx = pointX1 - textWidth / 2;
+
+            Paint.FontMetricsInt fontMetricsInt=mXYPaint.getFontMetricsInt();
+            float dy = (fontMetricsInt.bottom - fontMetricsInt.top) / 2 - fontMetricsInt.bottom;
+            float baseLine = pointY1 - dy-10;
+
+            canvas.drawText(text,textx,baseLine,mXYPaint);
+
+
             points.add(pointX1);
             points.add(pointY1);
+            //画虚线
+            while (pointY1 <((mViewHeight - mXDistance))){
+                canvas.drawLine(pointX1, pointY1, pointX1, pointY1 +10,xuPaint);
+                pointY1 +=20;
+            }
+            if (i<mDataTextY.length-1){
+                pointx2 = mYDistance+distance+1+(distance+1)*(i+1);
+                pointY2 = (mViewHeight - mXDistance) - (mDataTextY[i+1] * (mViewHeight - 2 * mXDistance)) /maxData;
 
+                points.add(pointx2);
+                points.add(pointY2);
+            }
+
+        }
+
+        mXYPaint.setColor(Color.BLUE);
+        for (int i = 0; i < mDataTextY2.length; i++) {
+            float pointX1=mYDistance+distance+1+(distance+1)*i;
+            float pointY1=(mViewHeight - mXDistance) - (mDataTextY2[i] * (mViewHeight - 2 * mXDistance)) /maxData;
+            canvas.drawPoint(pointX1,pointY1,pointPaint);
+            points2.add(pointX1);
+            points2.add(pointY1);
+
+            String text=mDataTextY2[i]+"";
+
+            float textWidth= mXYPaint.measureText(text,0,text.length());
+            float textx = pointX1 - textWidth / 2;
+
+            Paint.FontMetricsInt fontMetricsInt=mXYPaint.getFontMetricsInt();
+            float dy = (fontMetricsInt.bottom - fontMetricsInt.top) / 2 - fontMetricsInt.bottom;
+            float baseLine = pointY1 - dy-10;
+
+            canvas.drawText(text,textx,baseLine,mXYPaint);
 
             //画虚线
             while (pointY1<((mViewHeight - mXDistance))){
                 canvas.drawLine(pointX1,pointY1,pointX1,pointY1+10,xuPaint);
                 pointY1+=20;
             }
-
             if (i<mDataTextY.length-1){
                 float pointx2=mYDistance+distance+1+(distance+1)*(i+1);
-                float pointY2=(mViewHeight - mXDistance) - (mDataTextY[i+1] * (mViewHeight - 2 * mXDistance)) /maxData;
-                points.add(pointx2);
-                points.add(pointY2);
+                float pointY2=(mViewHeight - mXDistance) - (mDataTextY2[i+1] * (mViewHeight - 2 * mXDistance)) /maxData;
+                points2.add(pointx2);
+                points2.add(pointY2);
             }
 
+
         }
+
         float [] fpoints=new float[points.size()];
+        float [] fpoints2=new float[points.size()];
 
         for (int i = 0; i < points.size(); i++) {
             fpoints[i]= (float) points.get(i);
-        }
 
+        }
+        for (int i = 0; i < points2.size(); i++) {
+            fpoints2[i]= (float) points2.get(i);
+
+        }
         canvas.drawLines(fpoints,xyPaint);
+        xyPaint.setColor(Color.BLUE);
+        canvas.drawLines(fpoints2,xyPaint);
+        xyPaint.setColor(Color.BLACK);
     }
 
+    public void start(){
+        AnimatorSet set=new AnimatorSet();
+        ValueAnimator valueAnimator=ValueAnimator.ofFloat(pointX1,pointx2);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                increaseX= (float) animation.getAnimatedValue();
+                invalidate();
+            }
+        });
+        ValueAnimator valueAnimatory=ValueAnimator.ofFloat(pointY1,pointY2);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                increaseY= (float) animation.getAnimatedValue();
+                invalidate();
+            }
+        });
+        set.playTogether(valueAnimator,valueAnimatory);
+        set.setDuration(1000);
+        set.start();
+    }
     /**
      * sp转px
      */

@@ -9,7 +9,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.os.Build;
-import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -19,7 +18,6 @@ import android.view.animation.DecelerateInterpolator;
 
 import com.qj.kaiyan.R;
 import com.qj.kaiyan.entitys.Touchmodel;
-import com.qj.kaiyan.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +76,8 @@ public class DoubleLineChatView extends View {
      * 柱状图宽度
      */
     private float mLineWidth;
+
+    private float wwidth=40;
     /**
      * 颜色字体等变量
      */
@@ -139,7 +139,7 @@ public class DoubleLineChatView extends View {
         //获取自定义属性
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.DoubleLineChatView);
         //柱状图的宽度
-        mLineWidth = array.getDimension(R.styleable.DoubleLineChatView_chatview_line_width, dip2px(mContext, 30));
+        mLineWidth = array.getDimension(R.styleable.DoubleLineChatView_chatview_line_width, dip2px(mContext, 2));
         //左边柱状图的背景色
         mLeftLineBackGroundColor = array.getColor(R.styleable.DoubleLineChatView_chatview_left_background_color, mLeftLineBackGroundColor);
         //右边柱状图的背景色
@@ -186,6 +186,7 @@ public class DoubleLineChatView extends View {
         mPaintLeft.setColor(mLeftLineBackGroundColor);
         mPaintLeft.setStrokeWidth(mLineWidth);
         mPaintLeft.setAntiAlias(true);
+        mPaintLeft.setStyle(Paint.Style.FILL);
 
 
         //右边柱状图
@@ -193,6 +194,7 @@ public class DoubleLineChatView extends View {
         mPaintRight.setColor(mRightLineBackGroundColor);
         mPaintRight.setStrokeWidth(mLineWidth);
         mPaintRight.setAntiAlias(true);
+        mPaintRight.setStyle(Paint.Style.FILL);
 
 
         //左边柱状图字体数据
@@ -271,7 +273,7 @@ public class DoubleLineChatView extends View {
      */
     private void setDimension(int heightMeasureSpec) {
         //
-        mViewWidth = (int) (mYDistance + mBigDistance + (mDataLeft.length * (mLineWidth * 2 + mBigDistance + mSmallDistance)));
+        mViewWidth = (int) (mYDistance + mBigDistance + (mDataLeft.length * (wwidth * 2 + mBigDistance + mSmallDistance)));
         mViewHeight = MeasureSpec.getSize(heightMeasureSpec);
         Log.i(TAG, "mViewWidth=" + mViewWidth + "px");
         Log.i(TAG, "mViewHeight=" + mViewHeight + "px");
@@ -311,7 +313,7 @@ public class DoubleLineChatView extends View {
             String text = mDataTextX[i];
             //获取文字宽度
             float textWidth = mPaintTextXY.measureText(text, 0, text.length());
-            float dx = (mYDistance + mBigDistance + mSmallDistance / 2 + mLineWidth + (i * (mBigDistance + mSmallDistance + 2 * mLineWidth))) - textWidth / 2;
+            float dx = (mYDistance + mBigDistance + mSmallDistance / 2 + wwidth + (i * (mBigDistance + mSmallDistance + 2 * wwidth))) - textWidth / 2;
             Paint.FontMetricsInt fontMetricsInt = mPaintTextXY.getFontMetricsInt();
             float dy = (fontMetricsInt.bottom - fontMetricsInt.top) / 2 - fontMetricsInt.bottom;
             float baseLine = mViewHeight - mXDistance / 2 + dy;
@@ -389,18 +391,24 @@ public class DoubleLineChatView extends View {
      */
     private void drawLineData(Canvas canvas) {
         for (int i = 0; i < mDataLeft.length; i++) {
-            float startX = mYDistance + mBigDistance + mLineWidth / 2 + (i * (mBigDistance + mSmallDistance + 2 * mLineWidth));
+            float startX = mYDistance + mBigDistance + wwidth / 2 + (i * (mBigDistance + mSmallDistance + 2 * wwidth));
             float endY = (mViewHeight - mXDistance) - (mDataLeft[i] * (mViewHeight - 2 * mXDistance)) / mMaxData;
-            canvas.drawLine(startX, mViewHeight - mXDistance, startX, endY, mPaintLeft);
+            RectF rectF=new RectF(startX,mViewHeight-mXDistance,startX+40,endY+20);
+            int radius=20;
+            canvas.drawRoundRect(rectF,radius,radius,mPaintLeft);
+//            canvas.drawLine(startX, mViewHeight - mXDistance, startX, endY, mPaintLeft);
             String text = mDataLeft[i] + "";
             float textWidth = mPaintTextLeft.measureText(text, 0, text.length());
             canvas.drawText(text, startX - textWidth / 2, endY - 15, mPaintTextLeft);
         }
 
         for (int i = 0; i < mDataRight.length; i++) {
-            float startX = mYDistance + mBigDistance + mSmallDistance + mLineWidth + mLineWidth / 2 + (i * (mBigDistance + mSmallDistance + 2 * mLineWidth));
+            float startX = mYDistance + mBigDistance + mSmallDistance + wwidth + wwidth / 2 + (i * (mBigDistance + mSmallDistance + 2 * wwidth));
             float endY = ((mViewHeight - mXDistance)) - (mDataRight[i] * (mViewHeight - 2 * mXDistance)) / mMaxData;
-            canvas.drawLine(startX, mViewHeight - mXDistance, startX, endY, mPaintRight);
+            RectF rectF=new RectF(startX, mViewHeight - mXDistance, startX+40, endY+20);
+            int radius=20;
+            canvas.drawRoundRect(rectF,radius,radius,mPaintRight);
+//            canvas.drawLine(startX, mViewHeight - mXDistance, startX, endY, mPaintRight);
             String text = mDataRight[i] + "";
             float textWidth = mPaintTextRight.measureText(text, 0, text.length());
             canvas.drawText(text, startX - textWidth / 2, endY - 15, mPaintTextRight);
