@@ -52,7 +52,7 @@
         app:chatview_animation_duration="0"
         app:chatview_left_background_color="@color/colorAccent"
         app:chatview_left_text_data_color="@color/colorAccent"
-        app:chatview_line_big_distance="15dp"
+        app:chatview_line_big_distance="30dp"
         app:chatview_line_small_distance="3dp"
         app:chatview_line_width="20dp"
         app:chatview_right_background_color="@color/colorPrimaryDark"
@@ -110,5 +110,10 @@
         app:linechart_textSize="13sp"
         app:linechart_distance="35dp"
         app:linechart_pointColor="@color/colorAccent"
+        android:visibility="gone"
         />
+    <com.qj.kaiyan.weight.CircleProgressBar
+        android:id="@+id/circleProgressbar"
+        android:layout_width="60dp"
+        android:layout_height="60dp" />
 </LinearLayout>

@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 
 import com.qj.kaiyan.greendao.gen.DaoMaster;
 import com.qj.kaiyan.greendao.gen.DaoSession;
@@ -14,7 +15,7 @@ import com.umeng.socialize.UMShareConfig;
 
 import javax.xml.transform.sax.TemplatesHandler;
 
-public class MyApplication extends Application {
+public class MyApplication extends MultiDexApplication {
 
     public static  MyApplication context;
     private DaoMaster.DevOpenHelper devOpenHelper;

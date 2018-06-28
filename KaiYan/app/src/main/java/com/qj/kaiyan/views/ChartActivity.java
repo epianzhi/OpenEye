@@ -1,6 +1,7 @@
 package com.qj.kaiyan.views;
 
 import android.animation.AnimatorSet;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.qj.kaiyan.R;
 import com.qj.kaiyan.utils.ToastUtils;
+import com.qj.kaiyan.weight.CircleProgressBar;
 import com.qj.kaiyan.weight.CustomChartView;
 import com.qj.kaiyan.weight.DoubleLineChatView;
 import com.qj.kaiyan.weight.DoublezhuView;
@@ -42,6 +44,8 @@ public class ChartActivity extends AppCompatActivity implements DoubleLineChatVi
     LinearLayout content;
     @BindView(R.id.doublezhuview)
     DoublezhuView doublezhuView;
+    @BindView(R.id.circleProgressbar)
+    CircleProgressBar circleProgressBar;
 
     private int[] mDataLeftTwo = {160, 181, 130, 100};
     private int[] mDataRightTwo = {151, 65, 40, 20};
@@ -98,6 +102,8 @@ public class ChartActivity extends AppCompatActivity implements DoubleLineChatVi
             }
 
         });
+
+        circleProgressBar.setMtextRate("10.9%");
     }
 
 
@@ -111,6 +117,7 @@ public class ChartActivity extends AppCompatActivity implements DoubleLineChatVi
                 btnRight.setChecked(false);
                 totalsale.setText("总销量："+mDataLeftTwo[mDataRightTwo.length-1]);
                 personsale.setText("个人销量："+mDataRightTwo[mDataRightTwo.length-1]);
+                doubleline.setmBigDistance(dip2px(this,30));
                 break;
             case R.id.btn_rigth:
 
@@ -120,6 +127,8 @@ public class ChartActivity extends AppCompatActivity implements DoubleLineChatVi
                 btnRight.setChecked(true);
                 totalsale.setText("总销量："+mDataLeftTwo1[mDataRightTwo1.length-1]);
                 personsale.setText("个人销量："+mDataRightTwo1[mDataRightTwo1.length-1]);
+                doubleline.setmBigDistance(dip2px(this,20));
+
                 break;
         }
     }
@@ -136,5 +145,13 @@ public class ChartActivity extends AppCompatActivity implements DoubleLineChatVi
         }
         totalsale.setText("总销量："+i);
         personsale.setText("个人销量："+i1);
+    }
+
+    /**
+     * dp转px
+     */
+    public static int dip2px(Context context, float dpValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
     }
 }
